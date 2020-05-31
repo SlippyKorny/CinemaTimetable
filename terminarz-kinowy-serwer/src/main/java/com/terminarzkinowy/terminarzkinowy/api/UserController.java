@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public boolean register(User user) {
+    public boolean register(@RequestBody User user) {
         List<User> users = repository.findAll();
         for (User registeredUser : users) {
             if (registeredUser.getEmail().equals(user.getEmail()))

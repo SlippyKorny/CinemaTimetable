@@ -77,7 +77,7 @@ export class EdytujSeans extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <Button variant="primary" type="submit" block>Dodaj</Button>
+                        <Button variant="primary" type="submit" block>Zaktualizuj</Button>
                     </Col>
                 </Row>
             </Form>

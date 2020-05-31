@@ -18,7 +18,7 @@ export class DodajSeans extends Component {
         e.preventDefault();
         axios.put('http://localhost:8080/api/seans/insert/' + this.state.kinoId, this.state);
         console.log('http://localhost:8080/api/seans/insert/' + this.state.kinoId);
-        // window.location.href="/Seans/Spis";
+        window.location.href="/Seans/Spis";
     }
 
     render() {

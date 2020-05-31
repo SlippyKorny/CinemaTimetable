@@ -18,7 +18,6 @@ export class Login extends Component {
         e.preventDefault();
         axios.post('http://localhost:8080/api/user/login', this.state)
             .then(response => {
-                console.log("response received");
                 console.log(response.data);
                 if (response.data) {
                     this.setLoginCookie();
