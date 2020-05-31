@@ -2,10 +2,14 @@ package com.terminarzkinowy.terminarzkinowy.seeders;
 
 import com.terminarzkinowy.terminarzkinowy.models.Kino;
 import com.terminarzkinowy.terminarzkinowy.models.Seans;
+import com.terminarzkinowy.terminarzkinowy.models.User;
 import com.terminarzkinowy.terminarzkinowy.repositories.KinoRepository;
+import com.terminarzkinowy.terminarzkinowy.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,12 +19,26 @@ public class DbSeeder implements CommandLineRunner {
 
     private KinoRepository repository;
 
-    public DbSeeder(KinoRepository kinoRepository) {
+    private UserRepository usrRepo;
+
+    public DbSeeder(KinoRepository kinoRepository, UserRepository usrRepo) {
         this.repository = kinoRepository;
+        this.usrRepo = usrRepo;
+    }
+
+    private String encryptSha256(String str) throws NoSuchAlgorithmException {
+        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+        messageDigest.update(str.getBytes());
+        return new String(messageDigest.digest());
     }
 
     @Override
     public void run(String... args) throws Exception {
+        String hashedPasswd = encryptSha256("admin");
+        User usr = new User("c78bfd9b-32b1-47a2-a5a8-3d345c920c43", "admin@admin.com", hashedPasswd);
+        usrRepo.deleteAll();
+        usrRepo.save(usr);
+
         List<Seans> seanses1 = new ArrayList<>() {{
             add(new Seans("76606425-67f5-4d93-9609-6ef6b7dd784e",
                     "fca856ad-aa63-4a1c-9ac4-339cb0be75af", "Seans 1", 7200));

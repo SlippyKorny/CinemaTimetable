@@ -35,8 +35,8 @@ public class KinoController {
 
     @PostMapping("/update")
     public void update(@RequestBody Kino k) {
-        // TODO: If ID format is correct and existent in database
-        repository.save(k);
+        if (repository.findById(k.getId()).get() != null)
+            repository.save(k);
     }
 
     @DeleteMapping("/delete/{id}")
